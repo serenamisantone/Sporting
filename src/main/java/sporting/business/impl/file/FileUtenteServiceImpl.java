@@ -6,7 +6,7 @@ import sporting.business.UtenteNotFoundException;
 import sporting.business.UtenteService;
 import sporting.domain.Cliente;
 import sporting.domain.Operatore;
-import sporting.domain.Utente;
+import sporting.domain.Persona;
 
 
 public class FileUtenteServiceImpl implements UtenteService {
@@ -19,13 +19,13 @@ public class FileUtenteServiceImpl implements UtenteService {
 	}
 
 	@Override
-	public Utente authenticate(String username, String password) throws UtenteNotFoundException, BusinessException {
+	public Persona authenticate(String username, String password) throws UtenteNotFoundException, BusinessException {
 		try {
 			FileData fileData = Utility.readAllRows(utentiFilename);
 			for (String[] colonne : fileData.getRighe()) {
 				//1, cliente, cliente,cliente,Amleto,Di Salle
 				if (colonne[2].equals(username) && colonne[3].equals(password)) {
-					Utente utente = null;
+					Persona utente = null;
 					// colonna[1] identifica il ruolo
 					switch (colonne[1]) {
 					case "operatore":
@@ -62,9 +62,9 @@ public class FileUtenteServiceImpl implements UtenteService {
 
 
 	@Override
-	public Utente findUtenteById(Integer id) throws BusinessException {
+	public Persona findUtenteById(Integer id) throws BusinessException {
 
-		Utente utente = null;
+		Persona utente = null;
 		try {
 			FileData fileData = Utility.readAllRows(utentiFilename);
 			for (String[] colonne : fileData.getRighe()) {

@@ -7,9 +7,9 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import sporting.domain.Utente;
+import sporting.domain.Persona;
 
-public class HomeController implements Initializable, DataInitializable<Utente> {
+public class HomeController implements Initializable, DataInitializable<Persona> {
 
 	@FXML
 	private Label benvenutoLabel;
@@ -19,7 +19,7 @@ public class HomeController implements Initializable, DataInitializable<Utente> 
 	}
 
 	@Override
-	public void initializeData(Utente utente) {
+	public void initializeData(Persona utente) {
 
 		StringBuilder testo = new StringBuilder();
 		testo.append("Benvenut* ");

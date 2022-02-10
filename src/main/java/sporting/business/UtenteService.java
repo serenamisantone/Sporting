@@ -3,13 +3,13 @@ package sporting.business;
 import java.util.List;
 
 
-import sporting.domain.Utente;
+import sporting.domain.Persona;
 
 
 public interface UtenteService {
-	Utente authenticate(String username, String password) throws UtenteNotFoundException, BusinessException;
+	Persona authenticate(String username, String password) throws UtenteNotFoundException, BusinessException;
 
-	Utente findUtenteById(Integer Id) throws BusinessException;
+	Persona findUtenteById(Integer Id) throws BusinessException;
 
 	
 }

@@ -1,6 +1,6 @@
 package sporting.domain;
 
-public class Utente {
+public class Persona {
 	private Integer id;
 	private String nome;
 	private String cognome;

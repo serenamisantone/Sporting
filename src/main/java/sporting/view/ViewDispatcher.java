@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import sporting.controller.DataInitializable;
-import sporting.domain.Utente;
+import sporting.domain.Persona;
 
 
 public class ViewDispatcher {
@@ -33,10 +33,10 @@ public class ViewDispatcher {
         stage.setScene(scene);
         stage.show();
     }
-    public void loggedIn(Utente utente) {
+    public void loggedIn(Persona utente) {
         try {
-        	View<Utente> layoutView = loadView("layout");
-        	DataInitializable<Utente> layoutController = layoutView.getController();
+        	View<Persona> layoutView = loadView("layout");
+        	DataInitializable<Persona> layoutController = layoutView.getController();
         	layoutController.initializeData(utente);
              layout = (BorderPane) layoutView.getView();
              renderView("home", utente);

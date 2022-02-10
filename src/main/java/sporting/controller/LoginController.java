@@ -15,7 +15,7 @@ import sporting.business.BusinessException;
 import sporting.business.SportingBusinessFactory;
 import sporting.business.UtenteNotFoundException;
 import sporting.business.UtenteService;
-import sporting.domain.Utente;
+import sporting.domain.Persona;
 import sporting.view.ViewDispatcher;
 
 public class LoginController implements Initializable, DataInitializable<Object> {
@@ -59,7 +59,7 @@ public class LoginController implements Initializable, DataInitializable<Object>
 	public void loginAction(ActionEvent event) {
 		try {
 			
-			Utente utente = utenteService.authenticate(username.getText(), password.getText());
+			Persona utente = utenteService.authenticate(username.getText(), password.getText());
 			dispatcher.loggedIn(utente);
 		} catch (UtenteNotFoundException e) {
 			loginErrorLabel.setText("Username e/o password errati!");

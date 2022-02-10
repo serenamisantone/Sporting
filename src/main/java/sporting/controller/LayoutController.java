@@ -11,12 +11,12 @@ import javafx.scene.control.Separator;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
-import sporting.domain.Utente;
+import sporting.domain.Persona;
 import sporting.view.MenuElement;
 import sporting.view.ViewDispatcher;
 import sporting.domain.Cliente;
 
-public class LayoutController implements Initializable, DataInitializable<Utente> {
+public class LayoutController implements Initializable, DataInitializable<Persona> {
 
 	private static final MenuElement MENU_HOME = new MenuElement("Home", "home");
 	private static final MenuElement[] MENU_CLIENTI = { new MenuElement("Lezioni", "lezioni"),
@@ -26,7 +26,7 @@ public class LayoutController implements Initializable, DataInitializable<Utente
 	@FXML
 	private VBox menuBar;
 	
-	private Utente utente;
+	private Persona utente;
 	private ViewDispatcher dispatcher;
 
 	@Override
@@ -35,7 +35,7 @@ public class LayoutController implements Initializable, DataInitializable<Utente
 	}
 
 	@Override
-	public void initializeData(Utente utente) {
+	public void initializeData(Persona utente) {
 		this.utente = utente;
 		menuBar.getChildren().addAll(createButton(MENU_HOME));
 		menuBar.getChildren().add(new Separator());

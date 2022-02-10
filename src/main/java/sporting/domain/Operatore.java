@@ -1,5 +1,5 @@
 package sporting.domain;
 
-public class Operatore extends Utente {
+public class Operatore extends Persona {
 
 }
