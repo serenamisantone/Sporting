@@ -7,27 +7,17 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="703.0" style="-fx-background-color: #822627;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.myunivaq.controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sporting.controller.LoginController">
    <children>
-      <ImageView fitHeight="200.0" fitWidth="438.0" layoutX="133.0" layoutY="25.0">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="208.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@logo-univaq-bianco.png" />
+            <Image url="@../../../../../../Users/seren/Desktop/logo_large.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="267.0" layoutY="231.0" prefHeight="39.0" prefWidth="170.0" text="My Univaq" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <TextField fx:id="username" layoutX="272.0" layoutY="331.0" prefHeight="29.0" prefWidth="160.0" promptText="Username" />
-      <PasswordField fx:id="password" layoutX="272.0" layoutY="384.0" prefHeight="29.0" prefWidth="160.0" promptText="Password" />
-      <Button fx:id="loginButton" layoutX="297.0" layoutY="441.0" mnemonicParsing="false" onAction="#loginAction" prefHeight="25.0" prefWidth="110.0" text="Entra" textFill="#822627" />
-      <Label fx:id="loginErrorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="193.0" layoutY="277.0" prefHeight="39.0" prefWidth="317.0" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
+      <TextField fx:id="username" layoutX="225.0" layoutY="243.0" promptText="Username" />
+      <PasswordField fx:id="password" layoutX="225.0" layoutY="292.0" promptText="Password" />
+      <Button fx:id="loginButton" layoutX="274.0" layoutY="341.0" mnemonicParsing="false" onAction="#loginAction" text="Entra" />
+      <Label fx:id="loginErrorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="186.0" layoutY="215.0" prefHeight="18.0" prefWidth="226.0" textAlignment="CENTER" />
    </children>
 </AnchorPane>

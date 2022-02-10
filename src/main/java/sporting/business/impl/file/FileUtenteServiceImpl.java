@@ -23,7 +23,8 @@ public class FileUtenteServiceImpl implements UtenteService {
 		try {
 			FileData fileData = Utility.readAllRows(utentiFilename);
 			for (String[] colonne : fileData.getRighe()) {
-				if (colonne[4].equals(username) && colonne[5].equals(password)) {
+				//1, cliente, cliente,cliente,Amleto,Di Salle
+				if (colonne[2].equals(username) && colonne[3].equals(password)) {
 					Utente utente = null;
 					// colonna[1] identifica il ruolo
 					switch (colonne[1]) {
@@ -67,7 +68,7 @@ public class FileUtenteServiceImpl implements UtenteService {
 		try {
 			FileData fileData = Utility.readAllRows(utentiFilename);
 			for (String[] colonne : fileData.getRighe()) {
-				// 2,preparatore,serena,misantone,serenamisantone,passwords,teramo,DISPONIBILE
+				// 1, cliente, cliente,cliente,Amleto,Di Salle
 				if (Integer.parseInt(colonne[0]) == id) {
 
 					// colonna[1] identifica il ruolo
@@ -84,10 +85,10 @@ public class FileUtenteServiceImpl implements UtenteService {
 					}
 					if (utente != null) {
 						utente.setId(Integer.parseInt(colonne[0]));
-						utente.setUsername(colonne[4]);
-						utente.setPassword(colonne[5]);
-						utente.setNome(colonne[2]);
-						utente.setCognome(colonne[3]);
+						utente.setUsername(colonne[2]);
+						utente.setPassword(colonne[3]);
+						utente.setNome(colonne[4]);
+						utente.setCognome(colonne[5]);
 						
 					} else {
 						throw new BusinessException("errore nella lettura del file");

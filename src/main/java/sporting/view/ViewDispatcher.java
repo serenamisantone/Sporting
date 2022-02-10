@@ -1,14 +1,14 @@
 package sporting.view;
 
 import java.io.IOException;
-import sporting.controller.DataInitializable;
-import sporting.domain.Utente;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import sporting.controller.DataInitializable;
+import sporting.domain.Utente;
 
 
 public class ViewDispatcher {
@@ -17,7 +17,7 @@ public class ViewDispatcher {
 	private static ViewDispatcher instance = new ViewDispatcher();
 	private Stage stage;
 	private BorderPane layout;
-	private AnchorPane registrazione;
+	
 	
 	private ViewDispatcher() {
 	}
@@ -56,19 +56,7 @@ public class ViewDispatcher {
              renderError(e);
         }
     }
-    public <T> void register(String registerView) {
-    	try {
-    		 
-    		View<String> view = loadView( registerView);
-    		registrazione = (AnchorPane) view.getView();
-    		 Scene scene = new Scene(registrazione);
-    		 stage.setScene(scene);
-    		
-    	}
-    	catch(ViewException e){
-    		renderError(e);
-    	}
-    }
+ 
     
     public <T> void renderView(String viewName, T data) {
         try {

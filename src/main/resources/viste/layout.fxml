@@ -10,27 +10,27 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.myunivaq.controller.LayoutController">
+<BorderPane prefHeight="473.0" prefWidth="669.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sporting.controller.LayoutController">
    <left>
-      <VBox fx:id="menuBar" prefHeight="440.0" prefWidth="164.0" style="-fx-background-color: #822627;" BorderPane.alignment="CENTER_LEFT" />
+      <VBox fx:id="menuBar" prefHeight="441.0" prefWidth="148.0" style="-fx-background-color: #C8A2C8;" BorderPane.alignment="CENTER_LEFT" />
    </left>
    <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="600.0" spacing="10.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="670.0" spacing="10.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="88.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="104.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@logo-univaq.png" />
+                  <Image url="@logo_small_icon_only.png" />
                </image>
             </ImageView>
-            <Text fill="#822627" strokeType="OUTSIDE" strokeWidth="0.0" text="My Univaq" wrappingWidth="182.63671875">
+            <Text fill="#2222d4" stroke="#1900fc" strokeLineJoin="BEVEL" strokeType="INSIDE" strokeWidth="0.0" text="SPORTING" textAlignment="CENTER" wrappingWidth="256.63671875">
                <font>
-                  <Font size="28.0" />
+                  <Font size="50.0" />
                </font>
             </Text>
             <Separator orientation="VERTICAL" prefHeight="87.0" prefWidth="462.0" visible="false" />
-            <ImageView fx:id="esciButton" fitHeight="21.0" fitWidth="39.0" onMouseClicked="#esciAction" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="esciButton" fitHeight="51.0" fitWidth="49.0" onMouseClicked="#esciAction" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@logout.png" />
+                  <Image url="@logout2.png" />
                </image>
             </ImageView>
          </children>
@@ -38,7 +38,7 @@
             <Insets />
          </opaqueInsets>
          <padding>
-            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+            <Insets right="30.0" />
          </padding>
       </HBox>
    </top>
