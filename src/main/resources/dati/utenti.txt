@@ -1,0 +1,4 @@
+4
+1, docente, docente,docente,Amleto,Di Salle
+2,studente,studente,studente,Mario,Bianchi,1
+3,rossi,rossi,docente,Paolo,Rossi

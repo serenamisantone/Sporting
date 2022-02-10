@@ -1,0 +1,10 @@
+10
+1,2021-06-25,Primo Appello sessione estivaaaaa,ORALE,1
+2,2021-06-09,Secondo Appello sessione estiva,ORALE,1
+3,2021-07-23,Terzo Appello sessione estiva,ORALE,1
+4,2021-06-15,Primo Appello sessione estiva,SCRITTO,2
+5,2021-07-05,Secondo Appello sessione estiva,SCRITTO,2
+6,2021-07-25,Terzo Appello sessione estiva,SCRITTO,2
+7,2021-06-11,Primo Appello sessione estiva,ORALE,3
+8,2021-07-01,Secondo Appello sessione estiva,ORALE,3
+9,2021-07-22,Terzo Appello sessione estiva,ORALE,3

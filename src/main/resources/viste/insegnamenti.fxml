@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="432.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.myunivaq.controller.InsegnamentiController">
+   <children>
+      <Label prefHeight="67.0" prefWidth="584.0" text="Gestione Esami">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <TableView fx:id="insegnamentiTable" prefHeight="361.0" prefWidth="736.0">
+        <columns>
+          <TableColumn fx:id="codiceTableColumn" prefWidth="84.5" text="Codice" />
+          <TableColumn fx:id="denominazioneTableColumn" prefWidth="282.5" text="Attività Didattica" />
+            <TableColumn fx:id="corsoDiStudioTableColumn" prefWidth="154.0" text="Corso di Studio" />
+            <TableColumn fx:id="azioniTableColumn" editable="false" maxWidth="144.5" prefWidth="110.0" sortable="false" text="Azioni" />
+        </columns>
+      </TableView>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</VBox>

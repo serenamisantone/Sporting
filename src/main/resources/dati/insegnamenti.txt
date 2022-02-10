@@ -1,0 +1,6 @@
+6
+1,DT0539,Laboratorio di Programmazione ad Oggetti,ITA,6,b,2,1,1
+2,DT0209,Sviluppo web Avanzato,ITA,3,b,2,1,1
+3,F1081,Applicazioni per dispositivi mobili,ITA,6,b,2,1,1
+4,F1I012,Algoritmi e Strutture Dati,ITA,6,b,1,1,3
+5,F0055,Algoritmi e Strutture Dati II,ITA,6,b,2,2,3
