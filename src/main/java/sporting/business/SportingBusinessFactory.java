@@ -12,6 +12,6 @@ public abstract class SportingBusinessFactory {
 	}
 	
 	public abstract UtenteService getUtenteService();
-
+	public abstract LezioniService getLezioniService();
 	
 }

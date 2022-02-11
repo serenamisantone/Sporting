@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="607.0" style="-fx-background-color: #C8A2C8;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sporting.controller.LezioniController">
+   <children>
+      <Label layoutX="44.0" layoutY="58.0" prefHeight="39.0" prefWidth="225.0" text="Lezioni Programmate" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TableView fx:id="lezioniTable" layoutX="44.0" layoutY="106.0" prefHeight="238.0" prefWidth="518.0">
+         <columns>
+            <TableColumn fx:id="codice" prefWidth="85.59991645812988" text="Codice" />
+            <TableColumn fx:id="specializzazione" prefWidth="180.8000030517578" text="Specializzazione" />
+            <TableColumn fx:id="data" prefWidth="96.79998779296875" text="Data" />
+            <TableColumn fx:id="ora" prefWidth="82.4000244140625" text="Ora" />
+            <TableColumn fx:id="prenota" prefWidth="82.4000244140625" />
+         </columns>
+      </TableView>
+      <Label fx:id="loginLabel" layoutX="74.0" layoutY="14.0" prefHeight="35.0" prefWidth="458.0" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

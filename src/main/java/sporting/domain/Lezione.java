@@ -8,9 +8,17 @@ import java.util.Set;
 public class Lezione {
 private Integer id;
 private String codice;
-private String nome;
 private LocalDate data;
-private LocalTime orarioInizio; 
+private LocalTime orarioInizio;
+
+private Specializzazione specializzazione;
+public Specializzazione getSpecializzazione() {
+	return specializzazione;
+}
+
+public void setSpecializzazione(Specializzazione specializzazione) {
+	this.specializzazione = specializzazione;
+}
 
 private PersonalTrainer personalTrainer;
 public PersonalTrainer getPersonalTrainer() {
@@ -39,13 +47,6 @@ public void setCodice(String codice) {
 	this.codice = codice;
 }
 
-public String getNome() {
-	return nome;
-}
-
-public void setNome(String nome) {
-	this.nome = nome;
-}
 
 public LocalDate getData() {
 	return data;

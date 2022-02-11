@@ -12,7 +12,7 @@ public class SportingApplication extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		  ViewDispatcher dispatcher = ViewDispatcher.getInstance();
-	        dispatcher.loginView(stage);
+	        dispatcher.preView(stage);
 		
 	}
 

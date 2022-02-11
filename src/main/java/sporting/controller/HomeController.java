@@ -3,7 +3,6 @@ package sporting.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -20,13 +19,14 @@ public class HomeController implements Initializable, DataInitializable<Persona>
 
 	@Override
 	public void initializeData(Persona utente) {
-
 		StringBuilder testo = new StringBuilder();
 		testo.append("Benvenut* ");
-		testo.append(utente.getNome());
-		testo.append(" ");
-		testo.append(utente.getCognome());
-		benvenutoLabel.setText(testo.toString());
-		
+		if (utente != null) {
+			testo.append(utente.getNome());
+			testo.append(" ");
+			testo.append(utente.getCognome());
+			benvenutoLabel.setText(testo.toString());
+		}
+
 	}
 }
