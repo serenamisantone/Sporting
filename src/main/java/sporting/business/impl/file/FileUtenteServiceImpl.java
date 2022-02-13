@@ -34,6 +34,8 @@ public class FileUtenteServiceImpl implements UtenteService {
 					
 					case "cliente":
 						utente = new Cliente();
+						((Cliente) utente).setEmail(colonne[6]);
+						
 						break;
 					default:
 						break;
@@ -44,6 +46,7 @@ public class FileUtenteServiceImpl implements UtenteService {
 						utente.setPassword(password);
 						utente.setNome(colonne[2]);
 						utente.setCognome(colonne[3]);
+						
 					} else {
 						throw new BusinessException("errore nella lettura del file");
 					}

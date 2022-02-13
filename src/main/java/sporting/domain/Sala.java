@@ -3,11 +3,11 @@ package sporting.domain;
 public class Sala {
 private Integer id;
 private String codice;
-private String nome;
+
 private int capienza;
 
 private Specializzazione specializzazione;
-
+private PersonalTrainer trainer;
 public Integer getId() {
 	return id;
 }
@@ -24,13 +24,7 @@ public void setCodice(String codice) {
 	this.codice = codice;
 }
 
-public String getNome() {
-	return nome;
-}
 
-public void setNome(String nome) {
-	this.nome = nome;
-}
 
 public int getCapienza() {
 	return capienza;
@@ -46,6 +40,14 @@ public Specializzazione getSpecializzazione() {
 
 public void setSpecializzazione(Specializzazione specializzazione) {
 	this.specializzazione = specializzazione;
+}
+
+public PersonalTrainer getTrainer() {
+	return trainer;
+}
+
+public void setTrainer(PersonalTrainer trainer) {
+	this.trainer = trainer;
 }
 
 }

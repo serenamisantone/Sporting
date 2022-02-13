@@ -20,10 +20,12 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sporting.business.BusinessException;
-import sporting.business.LezioniService;
+import sporting.business.LezioneService;
 import sporting.business.SportingBusinessFactory;
+import sporting.domain.Cliente;
 import sporting.domain.Lezione;
 import sporting.domain.Persona;
+import sporting.domain.Prenotazione;
 import sporting.view.ViewDispatcher;
 
 public class LezioniController implements Initializable, DataInitializable<Persona> {
@@ -43,10 +45,11 @@ public class LezioniController implements Initializable, DataInitializable<Perso
 
 	@FXML
 	private TableColumn<Lezione, Button> prenota;
-@FXML
-private Label loginLabel;
+	@FXML
+	private Label loginLabel;
+	
 	private ViewDispatcher dispatcher;
-	private LezioniService lezioniService;
+	private LezioneService lezioniService;
 
 	public LezioniController() {
 		dispatcher = ViewDispatcher.getInstance();
@@ -69,14 +72,20 @@ private Label loginLabel;
 
 	@Override
 	public void initializeData(Persona persona) {
-		if(persona==null) {
+		if (persona == null) {
 			loginLabel.setText("Effettua il login per prenotare una lezione");
-		}else {
-			prenota.setCellValueFactory((CellDataFeatures<Lezione, Button> param)->{
+		} else {
+			prenota.setCellValueFactory((CellDataFeatures<Lezione, Button> param) -> {
 				Button button = new Button("Prenota");
 				button.setStyle("-fx-background-color: #C8A2C8");
 				button.setOnAction((ActionEvent event) -> {
-					//
+					Prenotazione prenotazione = new Prenotazione();
+					prenotazione.setOrarioInizio(param.getValue().getOrarioInizio());
+					prenotazione.setOrarioFine(param.getValue().getOrarioInizio().plusMinutes(90));
+					prenotazione.setData(param.getValue().getData());
+					prenotazione.setLezione(param.getValue());
+					prenotazione.setCliente((Cliente) persona);
+					dispatcher.renderView("prenotazioneLezione", prenotazione);
 				});
 				return new SimpleObjectProperty<Button>(button);
 			});
@@ -86,10 +95,13 @@ private Label loginLabel;
 			return new SimpleStringProperty(param.getValue().getSpecializzazione().getNome());
 		});
 		data.setCellValueFactory((CellDataFeatures<Lezione, String> param) -> {
-			return new SimpleObjectProperty<String>(param.getValue().getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+			return new SimpleObjectProperty<String>(
+					param.getValue().getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 		});
 		ora.setCellValueFactory((CellDataFeatures<Lezione, String> param) -> {
-			return new SimpleObjectProperty<String>(param.getValue().getOrarioInizio().format(DateTimeFormatter.ISO_LOCAL_TIME));
+			return new SimpleObjectProperty<String>(
+					param.getValue().getOrarioInizio().format(DateTimeFormatter.ISO_LOCAL_TIME));
 		});
+		
 	}
 }

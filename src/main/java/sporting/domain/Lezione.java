@@ -2,6 +2,7 @@ package sporting.domain;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,8 +11,10 @@ private Integer id;
 private String codice;
 private LocalDate data;
 private LocalTime orarioInizio;
+private Integer capienza;
 
 private Specializzazione specializzazione;
+
 public Specializzazione getSpecializzazione() {
 	return specializzazione;
 }
@@ -70,5 +73,13 @@ public Set<Cliente> getPartecipanti() {
 
 public void setPartecipanti(Set<Cliente> partecipanti) {
 	this.partecipanti = partecipanti;
+}
+
+public Integer getCapienza() {
+	return capienza;
+}
+
+public void setCapienza(Integer capienza) {
+	this.capienza = capienza;
 }
 }

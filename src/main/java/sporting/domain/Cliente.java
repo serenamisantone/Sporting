@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Cliente extends Persona {
+	private String Email;
+	
 	private Abbonamento abbonamento;
 	private Set<Prenotazione> prenotazioni = new HashSet<Prenotazione>();
 	public Abbonamento getAbbonamento() {
@@ -17,6 +19,12 @@ public class Cliente extends Persona {
 	}
 	public void setPrenotazioni(Set<Prenotazione> prenotazioni) {
 		this.prenotazioni = prenotazioni;
+	}
+	public String getEmail() {
+		return Email;
+	}
+	public void setEmail(String email) {
+		Email = email;
 	}
 	
 	}
