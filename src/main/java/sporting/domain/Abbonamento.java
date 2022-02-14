@@ -2,8 +2,10 @@ package sporting.domain;
 
 public class Abbonamento {
 private Integer id;
+private String codice;
 private String nome;
 private int durata; //in giorni 
+private Double prezzo;
 public Integer getId() {
 	return id;
 }
@@ -21,5 +23,17 @@ public int getDurata() {
 }
 public void setDurata(int durata) {
 	this.durata = durata;
+}
+public Double getPrezzo() {
+	return prezzo;
+}
+public void setPrezzo(Double prezzo) {
+	this.prezzo = prezzo;
+}
+public String getCodice() {
+	return codice;
+}
+public void setCodice(String codice) {
+	this.codice = codice;
 }
 }

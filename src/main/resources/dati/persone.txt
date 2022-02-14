@@ -1,5 +1,1 @@
 5
-1,cliente,cliente,cliente,Camilla,Manari,3
-2,operatore,operatore,operatore,Serena,Misantone
-3,trainer,Mario,Rossi,1
-4,trainer,Angela,Bianchi,2
