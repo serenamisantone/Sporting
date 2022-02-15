@@ -2,15 +2,17 @@ package sporting.business.impl.file;
 
 import java.io.File;
 import sporting.business.AbbonamentiService;
-import sporting.business.LezioniService;
+import sporting.business.LezioneService;
+import sporting.business.PrenotazioneService;
+import sporting.business.SalaService;
 import sporting.business.SportingBusinessFactory;
 import sporting.business.UtenteService;
 
 public class FileSportingBusinessFactoryImpl extends SportingBusinessFactory {
 	private UtenteService utenteService;
-	private LezioniService lezioniService;
+	private LezioneService lezioniService;
 	private AbbonamentiService abbonamentiService;
-	private SaleService saleService;
+	private SalaService saleService;
 	private PrenotazioneService prenotazioneService;
 	private static final String REPOSITORY_BASE = "src" + File.separator + "main" + File.separator + "resources"
 			+ File.separator + "dati";
@@ -21,9 +23,9 @@ public class FileSportingBusinessFactoryImpl extends SportingBusinessFactory {
 	private static final String SALE_FILE_NAME = REPOSITORY_BASE + File.separator + "sale.txt";
 	private static final String PRENOTAZIONI_FILE_NAME = REPOSITORY_BASE + File.separator + "prenotazioni.txt";
 	public FileSportingBusinessFactoryImpl() {
-		utenteService = new FileUtenteServiceImpl(UTENTI_FILE_NAME);
-		lezioniService = new FileLezioniServiceImpl(LEZIONI_FILE_NAME, UTENTI_FILE_NAME, SPECIALIZZAZIONI_FILE_NAME);
 		abbonamentiService = new FileAbbonamentiServiceImpl(ABBONAMENTI_FILE_NAME, UTENTI_FILE_NAME);
+		utenteService = new FileUtenteServiceImpl(UTENTI_FILE_NAME, abbonamentiService);
+		lezioniService = new FileLezioniServiceImpl(LEZIONI_FILE_NAME, UTENTI_FILE_NAME, SPECIALIZZAZIONI_FILE_NAME);
 		saleService = new FileSaleServiceImpl(SALE_FILE_NAME, lezioniService);
 		prenotazioneService= new FilePrenotazioneServiceImpl(PRENOTAZIONI_FILE_NAME, lezioniService);
 	}
@@ -34,7 +36,7 @@ public class FileSportingBusinessFactoryImpl extends SportingBusinessFactory {
 	}
 
 	@Override
-	public LezioniService getLezioniService() {
+	public LezioneService getLezioniService() {
 		return lezioniService;
 	}
 

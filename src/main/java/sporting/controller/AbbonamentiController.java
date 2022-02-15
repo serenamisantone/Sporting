@@ -20,10 +20,11 @@ import sporting.business.AbbonamentiService;
 import sporting.business.BusinessException;
 import sporting.business.SportingBusinessFactory;
 import sporting.domain.Abbonamento;
+import sporting.domain.Cliente;
 import sporting.domain.Persona;
 import sporting.view.ViewDispatcher;
 
-public class AbbonamentiController implements Initializable, DataInitializable<Persona> {
+public class AbbonamentiController implements Initializable, DataInitializable<Cliente> {
 	@FXML
 	private TableView<Abbonamento> abbonamentiTable;
 	@FXML
@@ -39,9 +40,10 @@ public class AbbonamentiController implements Initializable, DataInitializable<P
 	private TableColumn<Abbonamento, Button> acquistaTableColumn;
 @FXML
 private Label loginLabel;
+@FXML
+private Label label;
 	private ViewDispatcher dispatcher;
 	private AbbonamentiService abbonamentiService;
-
 	public AbbonamentiController() {
 		dispatcher = ViewDispatcher.getInstance();
 		SportingBusinessFactory factory = SportingBusinessFactory.getInstance();
@@ -62,18 +64,28 @@ private Label loginLabel;
 	}
 
 	@Override
-	public void initializeData(Persona persona) {
-		if(persona==null) {
+	public void initializeData(Cliente cliente) {
+		if(cliente==null) {
 			loginLabel.setText("Effettua il login per acquistare \n un abbonamento");
 		}else {
+			if(cliente.getAbbonamento()== null) {
 			acquistaTableColumn.setCellValueFactory((CellDataFeatures<Abbonamento, Button> param)->{
 				Button button = new Button("Acquista");
 				button.setStyle("-fx-background-color: #C8A2C8");
 				button.setOnAction((ActionEvent event) -> {
-					dispatcher.renderView("acquisto",persona );
+
+					try {
+						abbonamentiService.assegnaAbbonamento(param.getValue(), cliente);
+						label.setText("Pagamento andato a buon fine");
+					} catch (BusinessException e) {
+						dispatcher.renderError(e);
+					}
 				});
 				return new SimpleObjectProperty<Button>(button);
 			});
+		}else {
+			label.setText("Abbonamento già in possesso");
+		}
 		}
 		codiceTableColumn.setCellValueFactory(new PropertyValueFactory<>("codice"));
 		tipoTableColumn.setCellValueFactory((CellDataFeatures<Abbonamento, String> param) -> {

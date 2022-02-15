@@ -8,4 +8,6 @@ public interface AbbonamentiService {
 	List <Abbonamento> findAllAbbonamenti() throws BusinessException;
 
 	 void assegnaAbbonamento(Abbonamento abbonamento, Cliente cliente) throws BusinessException;
+
+	Abbonamento findAbbonamentoById(Integer id) throws BusinessException;
 }

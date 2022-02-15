@@ -1,6 +1,8 @@
 package sporting.business.impl.file;
 
 import java.io.IOException;
+
+import sporting.business.AbbonamentiService;
 import sporting.business.BusinessException;
 import sporting.business.UtenteNotFoundException;
 import sporting.business.UtenteService;
@@ -12,9 +14,10 @@ import sporting.domain.Persona;
 public class FileUtenteServiceImpl implements UtenteService {
 
 	private String utentiFilename;
-
-	public FileUtenteServiceImpl(String utentiFileName) {
+	private AbbonamentiService abbonamentiService;
+	public FileUtenteServiceImpl(String utentiFileName, AbbonamentiService abbonamentiservice) {
 		this.utentiFilename = utentiFileName;
+		this.abbonamentiService = abbonamentiservice;
 
 	}
 
@@ -35,6 +38,9 @@ public class FileUtenteServiceImpl implements UtenteService {
 					case "cliente":
 						utente = new Cliente();
 						((Cliente) utente).setEmail(colonne[6]);
+						if(colonne.length>7) {
+							((Cliente) utente).setAbbonamento(abbonamentiService.findAbbonamentoById(Integer.parseInt(colonne[7])));
+						}
 						
 						break;
 					default:
@@ -44,8 +50,8 @@ public class FileUtenteServiceImpl implements UtenteService {
 						utente.setId(Integer.parseInt(colonne[0]));
 						utente.setUsername(username);
 						utente.setPassword(password);
-						utente.setNome(colonne[2]);
-						utente.setCognome(colonne[3]);
+						utente.setNome(colonne[4]);
+						utente.setCognome(colonne[5]);
 						
 					} else {
 						throw new BusinessException("errore nella lettura del file");
