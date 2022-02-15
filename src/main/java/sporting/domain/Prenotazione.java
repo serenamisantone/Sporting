@@ -8,6 +8,7 @@ public class Prenotazione {
 	private LocalTime orarioInizio;
 	private LocalTime orarioFine;
 	private LocalDate data;
+	private String qrcode;
 
 	private Lezione lezione;
 	private Sala sala;
@@ -67,6 +68,14 @@ public class Prenotazione {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public String getQrcode() {
+		return qrcode;
+	}
+
+	public void setQrcode(String qrcode) {
+		this.qrcode = qrcode;
 	}
 
 }

@@ -23,7 +23,7 @@ public class FileUtenteServiceImpl implements UtenteService {
 		try {
 			FileData fileData = Utility.readAllRows(utentiFilename);
 			for (String[] colonne : fileData.getRighe()) {
-				//1, cliente, cliente,cliente,Amleto,Di Salle
+				//1, cliente, cliente,cliente,camilla,manari
 				if (colonne[2].equals(username) && colonne[3].equals(password)) {
 					Persona utente = null;
 					// colonna[1] identifica il ruolo
@@ -71,7 +71,7 @@ public class FileUtenteServiceImpl implements UtenteService {
 		try {
 			FileData fileData = Utility.readAllRows(utentiFilename);
 			for (String[] colonne : fileData.getRighe()) {
-				// 1, cliente, cliente,cliente,Amleto,Di Salle
+				// 1, cliente, cliente,cliente,camilla,manari
 				if (Integer.parseInt(colonne[0]) == id) {
 
 					// colonna[1] identifica il ruolo
