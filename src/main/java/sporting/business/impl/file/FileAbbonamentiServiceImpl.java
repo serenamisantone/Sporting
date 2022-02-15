@@ -51,13 +51,15 @@ public class FileAbbonamentiServiceImpl implements AbbonamentiService {
 						StringBuilder row = new StringBuilder();
 						row.append(cliente.getId());
 						row.append(Utility.SEPARATORE_COLONNA);
-						row.append(cliente.getCognome());
+						row.append(cliente);
 						row.append(Utility.SEPARATORE_COLONNA);
-						row.append(cliente.getNome());
+						row.append(cliente.getUsername());
 						row.append(Utility.SEPARATORE_COLONNA);
 						row.append(cliente.getPassword());
 						row.append(Utility.SEPARATORE_COLONNA);
-						row.append(cliente.getUsername());
+						row.append(cliente.getNome());
+						row.append(Utility.SEPARATORE_COLONNA);
+						row.append(cliente.getCognome());
 						row.append(Utility.SEPARATORE_COLONNA);
 						row.append(cliente.getAbbonamento().getId());
 						writer.println(row.toString());

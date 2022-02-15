@@ -10,16 +10,22 @@ public class FileSportingBusinessFactoryImpl extends SportingBusinessFactory {
 	private UtenteService utenteService;
 	private LezioniService lezioniService;
 	private AbbonamentiService abbonamentiService;
+	private SaleService saleService;
+	private PrenotazioneService prenotazioneService;
 	private static final String REPOSITORY_BASE = "src" + File.separator + "main" + File.separator + "resources"
 			+ File.separator + "dati";
 	private static final String UTENTI_FILE_NAME = REPOSITORY_BASE + File.separator + "persone.txt";
 	private static final String LEZIONI_FILE_NAME = REPOSITORY_BASE + File.separator + "lezioni.txt";
 	private static final String SPECIALIZZAZIONI_FILE_NAME = REPOSITORY_BASE + File.separator + "specializzazioni.txt";
 	private static final String ABBONAMENTI_FILE_NAME = REPOSITORY_BASE + File.separator + "abbonamenti.txt";
+	private static final String SALE_FILE_NAME = REPOSITORY_BASE + File.separator + "sale.txt";
+	private static final String PRENOTAZIONI_FILE_NAME = REPOSITORY_BASE + File.separator + "prenotazioni.txt";
 	public FileSportingBusinessFactoryImpl() {
 		utenteService = new FileUtenteServiceImpl(UTENTI_FILE_NAME);
 		lezioniService = new FileLezioniServiceImpl(LEZIONI_FILE_NAME, UTENTI_FILE_NAME, SPECIALIZZAZIONI_FILE_NAME);
 		abbonamentiService = new FileAbbonamentiServiceImpl(ABBONAMENTI_FILE_NAME, UTENTI_FILE_NAME);
+		saleService = new FileSaleServiceImpl(SALE_FILE_NAME, lezioniService);
+		prenotazioneService= new FilePrenotazioneServiceImpl(PRENOTAZIONI_FILE_NAME, lezioniService);
 	}
 
 	@Override
@@ -38,4 +44,16 @@ public class FileSportingBusinessFactoryImpl extends SportingBusinessFactory {
 	}
 
 
-}
+	@Override
+	public SalaService getSaleService() {
+		return saleService;
+	}
+
+	@Override
+	public PrenotazioneService getPrenotazioneService() {
+
+		return prenotazioneService;
+	}
+	
+	}
+
