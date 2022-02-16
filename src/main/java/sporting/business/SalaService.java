@@ -6,4 +6,6 @@ import sporting.domain.Sala;
 
 public interface SalaService {
  List<Sala> findAllSale() throws BusinessException;
+
+Sala findSalaById(Integer id) throws BusinessException;
 }

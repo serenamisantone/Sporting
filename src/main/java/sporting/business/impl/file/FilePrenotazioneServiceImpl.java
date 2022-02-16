@@ -6,7 +6,10 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -23,27 +26,31 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.NotFoundException;
 import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-
 import sporting.business.BusinessException;
 import sporting.business.CapienzaEsauritaException;
 import sporting.business.LezioneService;
 import sporting.business.PrenotazioneService;
+import sporting.business.SalaService;
+import sporting.business.UtenteService;
+import sporting.domain.Cliente;
 import sporting.domain.Prenotazione;
 
 
 public class FilePrenotazioneServiceImpl implements PrenotazioneService {
 	private String prenotazioniFileName;
 	private LezioneService lezioneService;
+	private UtenteService utenteService;
+	private SalaService salaService;
 
-	public FilePrenotazioneServiceImpl(String filename, LezioneService lezioneService) {
+	public FilePrenotazioneServiceImpl(String filename, LezioneService lezioneService, UtenteService utenteService, SalaService salaService) {
 		prenotazioniFileName = filename;
 		this.lezioneService = lezioneService;
-
+		this.utenteService = utenteService;
+		this.salaService = salaService;
 	}
 
 	@Override
@@ -228,6 +235,75 @@ public class FilePrenotazioneServiceImpl implements PrenotazioneService {
 		}
 	}
 
+	@Override
+	public List<Prenotazione> findAllPrenotazioni(Cliente cliente) throws BusinessException {
+			List<Prenotazione> result = new ArrayList<>();
+			try {
+				FileData fileData = Utility.readAllRows(prenotazioniFileName);
+				for (String[] colonne : fileData.getRighe()) {
+					//1,1,sala,1,2022-02-18,16:00,qrcode1
+					if (cliente.getId() == Integer.parseInt(colonne[0])) {
+						Prenotazione prenotazione = new Prenotazione();
+						prenotazione.setId(Integer.parseInt(colonne[0]));
+						prenotazione.setCliente((Cliente) utenteService.findUtenteById(Integer.parseInt(colonne[1])));
+						if(colonne[2].equals("sala")) {
+						prenotazione.setSala(salaService.findSalaById(Integer.parseInt(colonne[3])));
+						}else {
+						prenotazione.setLezione(lezioneService.findLezioneById(Integer.parseInt(colonne[3])));
+						}
+						prenotazione.setData(LocalDate.parse(colonne[4]));;
+						prenotazione.setOrarioInizio(LocalTime.parse(colonne[5]));
+						prenotazione.setQrcode(colonne[6]);
+						result.add(prenotazione);
+					}
+				}
+
+			} catch (IOException e) {
+				e.printStackTrace();
+				throw new BusinessException(e);
+			}
+			return result;
+	}
+
+	@Override
+	public void CancellaPrenotazione(Prenotazione prenotazione , Cliente cliente) throws BusinessException {
+		try {
+			FileData fileData = Utility.readAllRows(prenotazioniFileName);
+
+			try (PrintWriter writer = new PrintWriter(new File(prenotazioniFileName))) {
+
+				Integer contatore = (int) fileData.getContatore();
+
+				writer.println((contatore - 1));
+				List<String[]> righe = fileData.getRighe();
+				Iterator<String[]> i = righe.iterator();
+				String[] riga = null;
+				while (i.hasNext()) {
+					riga = (String[]) i.next();
+
+					if (riga[0].equals(String.valueOf(prenotazione.getId()))&& cliente.getId()==Integer.parseInt(riga[1])) {
+						i.remove();
+						while (i.hasNext()) {
+							riga = (String[]) i.next();
+							Integer id = Integer.parseInt(riga[0]);
+							riga[0] = String.valueOf(id - 1);
+							writer.println(String.join(Utility.SEPARATORE_COLONNA, riga));
+						}
+						break;
+					}
+
+					writer.println(String.join(Utility.SEPARATORE_COLONNA, riga));
+				}
+			}
+		}catch (IOException e) {
+			e.printStackTrace();
+			throw new BusinessException(e);
+		}
+		
+		}
+	
+		
+
 	/*public void checkIn(Prenotazione prenotazione) throws WriterException, IOException, NotFoundException {
 
 		// Path where the QR code is saved
@@ -242,4 +318,5 @@ public class FilePrenotazioneServiceImpl implements PrenotazioneService {
 
 		System.out.println("QRCode output: " + Qrcode.readQR(path, charset, hashMap));
 	}*/
-}
+
+	}

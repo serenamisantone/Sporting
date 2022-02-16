@@ -15,4 +15,6 @@ public interface LezioneService {
 
 	boolean decreaseCapienzaLezione(Lezione lezione) throws BusinessException;
 
+	Lezione findLezioneById(Integer id) throws BusinessException;
+
 }

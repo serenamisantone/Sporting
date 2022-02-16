@@ -129,6 +129,30 @@ public class FileLezioniServiceImpl implements LezioneService {
 		}
 		return false;
 
+	}@Override
+	public Lezione findLezioneById(Integer id) throws BusinessException {
+		Lezione lezione = new Lezione();
+		try {
+			FileData fileData = Utility.readAllRows(lezioniFileName);
+			//1,af56,2022-03-10,10:00,0,1,3
+			for (String[] colonne : fileData.getRighe()) {
+				if (Integer.parseInt(colonne[0]) == id) {
+					lezione.setId(id);
+					lezione.setCodice(colonne[1]);
+					lezione.setData(LocalDate.parse(colonne[2]));
+					lezione.setOrarioInizio(LocalTime.parse(colonne[3]));
+					lezione.setCapienza(Integer.parseInt(colonne[4]));
+					lezione.setSpecializzazione(findSpecializzazioneById(Integer.parseInt(colonne[5])));
+					lezione.setPersonalTrainer(findPersonalTrainerById(Integer.parseInt(colonne[6])));
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new BusinessException(e);
+		}
+		return lezione;
 	}
+
+	
 
 }

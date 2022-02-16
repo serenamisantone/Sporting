@@ -27,7 +27,7 @@ public class FileSportingBusinessFactoryImpl extends SportingBusinessFactory {
 		utenteService = new FileUtenteServiceImpl(UTENTI_FILE_NAME, abbonamentiService);
 		lezioniService = new FileLezioniServiceImpl(LEZIONI_FILE_NAME, UTENTI_FILE_NAME, SPECIALIZZAZIONI_FILE_NAME);
 		saleService = new FileSaleServiceImpl(SALE_FILE_NAME, lezioniService);
-		prenotazioneService= new FilePrenotazioneServiceImpl(PRENOTAZIONI_FILE_NAME, lezioniService);
+		prenotazioneService= new FilePrenotazioneServiceImpl(PRENOTAZIONI_FILE_NAME, lezioniService, utenteService, saleService);
 	}
 
 	@Override
