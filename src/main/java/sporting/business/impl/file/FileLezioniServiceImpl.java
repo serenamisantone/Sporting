@@ -80,7 +80,8 @@ public class FileLezioniServiceImpl implements LezioneService {
 				lezione.setCapienza(Integer.parseInt(colonne[4]));
 				lezione.setSpecializzazione(findSpecializzazioneById(Integer.parseInt(colonne[5])));
 				lezione.setPersonalTrainer(findPersonalTrainerById(Integer.parseInt(colonne[6])));
-				if (lezione.getCapienza() > 0)
+				if (lezione.getCapienza() > 0 && !(lezione.getData().equals(LocalDate.now())
+						&& lezione.getOrarioInizio().compareTo(LocalTime.now().plusMinutes(15)) < 0))
 					result.add(lezione);
 			}
 			return result;

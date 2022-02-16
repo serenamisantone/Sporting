@@ -22,9 +22,9 @@
                   <Image url="@logo_small_icon_only.png" />
                </image>
             </ImageView>
-            <Text fill="#2222d4" stroke="#1900fc" strokeLineJoin="BEVEL" strokeType="INSIDE" strokeWidth="0.0" text="SPORTING" textAlignment="CENTER" wrappingWidth="256.63671875">
+            <Text fill="#2222d4" stroke="#1900fc" strokeLineJoin="BEVEL" strokeType="INSIDE" strokeWidth="0.0" text="Sporting" textAlignment="CENTER" wrappingWidth="256.63671875">
                <font>
-                  <Font size="50.0" />
+                  <Font name="Cambria" size="50.0" />
                </font>
             </Text>
             <Separator orientation="VERTICAL" prefHeight="87.0" prefWidth="462.0" visible="false" />

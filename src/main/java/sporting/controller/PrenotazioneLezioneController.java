@@ -22,14 +22,14 @@ public class PrenotazioneLezioneController implements Initializable, DataInitial
 	private ViewDispatcher dispatcher;
 	private PrenotazioneService prenotazioneService;
 	private Prenotazione prenotazione;
+
 	public PrenotazioneLezioneController() {
-		
 
 		dispatcher = ViewDispatcher.getInstance();
 		SportingBusinessFactory factory = SportingBusinessFactory.getInstance();
 		prenotazioneService = factory.getPrenotazioneService();
 	}
-	
+
 	@FXML
 	private Label ora;
 
@@ -38,7 +38,7 @@ public class PrenotazioneLezioneController implements Initializable, DataInitial
 
 	@FXML
 	private Label capienzaException;
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -46,9 +46,8 @@ public class PrenotazioneLezioneController implements Initializable, DataInitial
 
 	@Override
 	public void initializeData(Prenotazione prenotazione) {
-		this.prenotazione=prenotazione;
+		this.prenotazione = prenotazione;
 		ora.setText(prenotazione.getOrarioInizio().toString());
-
 		giorno.setText(prenotazione.getData().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
 	}
 
@@ -56,19 +55,18 @@ public class PrenotazioneLezioneController implements Initializable, DataInitial
 	void confermaAction(ActionEvent event) {
 		try {
 			prenotazioneService.addPrenotazione(prenotazione);
-			
+
 		} catch (CapienzaEsauritaException e) {
 			capienzaException.setText("Capienza esaurita");
 			try {
 				TimeUnit.SECONDS.sleep(5);
 			} catch (InterruptedException e1) {
-				
+
 				e1.printStackTrace();
 			}
-		}catch (BusinessException e) {
-			// TODO Auto-generated catch block
+		} catch (BusinessException e) {		
 			e.printStackTrace();
 		}
-		dispatcher.renderView("lezioni",prenotazione.getCliente());
+		dispatcher.renderView("lezioni", prenotazione.getCliente());
 	}
 }

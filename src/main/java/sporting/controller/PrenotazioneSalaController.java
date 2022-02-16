@@ -58,6 +58,7 @@ public class PrenotazioneSalaController implements Initializable, DataInitializa
 			prenotazione.setData(data.getValue());
 			prenotazione.setOrarioInizio(LocalTime.parse(ora.getText(), DateTimeFormatter.ISO_LOCAL_TIME));
 			prenotazioneService.addPrenotazione(prenotazione);
+			
 			dispatcher.renderView("sale", prenotazione.getCliente());
 			}catch(DateTimeParseException e1) {
 				errorLabel.setText("inserisci un formato valido");
