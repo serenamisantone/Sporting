@@ -1,4 +1,4 @@
 4
-1,Settimanale,7
-2,Mensile,30
-3,Annuale,365
+1,01,Settimanale,7,30.00
+2,02,Mensile,30,80.00
+3,03,Annuale,365,480.00

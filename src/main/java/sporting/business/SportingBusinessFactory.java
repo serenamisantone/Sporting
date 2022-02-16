@@ -13,8 +13,10 @@ public abstract class SportingBusinessFactory {
 	public abstract UtenteService getUtenteService();
 
 	public abstract LezioneService getLezioniService();
+	public abstract AbbonamentiService getAbbonamentiService();
 
 	public abstract SalaService getSaleService();
 
 	public abstract PrenotazioneService getPrenotazioneService();
+
 }

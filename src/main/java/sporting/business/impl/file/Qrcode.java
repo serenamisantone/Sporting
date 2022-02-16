@@ -19,7 +19,6 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
-
 public class Qrcode {
 
 	public static void createQR(String data, String path, String charset, Map hashMap, int height, int width)
