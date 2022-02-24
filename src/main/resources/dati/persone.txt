@@ -1,5 +1,6 @@
-5
-1,cliente,cliente,cliente,Camilla,Manari,sciusci2@gmail.com,01
+6
+1,cliente,cliente,cliente,Camilla,Manari,misticone01@gmail.com,02
 2,operatore,operatore,operatore,Serena,Misantone
 3,trainer,Mario,Rossi,2
 4,trainer,Angela,Bianchi,3
+5,cliente,cliente2,cliente2,Serena,Misantone,misticone01@gmail.com,01

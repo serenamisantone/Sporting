@@ -40,7 +40,7 @@ public class SaleController implements Initializable, DataInitializable<Cliente>
 	private TableColumn<Sala, Button> prenota;
 
 	@FXML
-	private Label loginLabel;
+	private Label errorLabel;
 	private ViewDispatcher dispatcher;
 	private SalaService saleService;
 
@@ -66,8 +66,12 @@ public class SaleController implements Initializable, DataInitializable<Cliente>
 	@Override
 	public void initializeData(Cliente cliente) {
 		if (cliente == null) {
-			loginLabel.setText("Effettua il login per prenotare una sala");
+			errorLabel.setText("Effettua il login per prenotare una sala");
 		} else {
+			if(cliente.getAbbonamento()==null ){
+				errorLabel.setText("Non puoi prenotare una sala perchè non hai un abbonamento");
+			}else
+				{
 			prenota.setCellValueFactory((CellDataFeatures<Sala, Button> param) -> {
 				Button button = new Button("Prenota");
 				button.setStyle("-fx-background-color: #C8A2C8");
@@ -80,6 +84,7 @@ public class SaleController implements Initializable, DataInitializable<Cliente>
 				return new SimpleObjectProperty<Button>(button);
 			});
 		}
+	}
 		codice.setCellValueFactory(new PropertyValueFactory<>("codice"));
 		specializzazione.setCellValueFactory((CellDataFeatures<Sala, String> param) -> {
 			return new SimpleStringProperty(param.getValue().getSpecializzazione().getNome());

@@ -1,5 +1,4 @@
-5
+10
 1,1,sala,1,2022-02-18,16:00,qrcode1
-2,1,lezione,2,qrcode2
-3,1,sala,2,2022-02-26,10:00,qrcode3
-4,5,lezione,2,qrcode4
+6,1,sala,2,2022-02-25,10:00,qrcode6
+7,1,lezione,2,qrcode7

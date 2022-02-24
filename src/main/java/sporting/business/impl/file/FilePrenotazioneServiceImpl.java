@@ -8,7 +8,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -26,10 +25,12 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.NotFoundException;
 import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+
 import sporting.business.BusinessException;
 import sporting.business.CapienzaEsauritaException;
 import sporting.business.LezioneService;
@@ -39,14 +40,14 @@ import sporting.business.UtenteService;
 import sporting.domain.Cliente;
 import sporting.domain.Prenotazione;
 
-
 public class FilePrenotazioneServiceImpl implements PrenotazioneService {
 	private String prenotazioniFileName;
 	private LezioneService lezioneService;
 	private UtenteService utenteService;
 	private SalaService salaService;
 
-	public FilePrenotazioneServiceImpl(String filename, LezioneService lezioneService, UtenteService utenteService, SalaService salaService) {
+	public FilePrenotazioneServiceImpl(String filename, LezioneService lezioneService, UtenteService utenteService,
+			SalaService salaService) {
 		prenotazioniFileName = filename;
 		this.lezioneService = lezioneService;
 		this.utenteService = utenteService;
@@ -57,7 +58,7 @@ public class FilePrenotazioneServiceImpl implements PrenotazioneService {
 	public void addPrenotazione(Prenotazione prenotazione) throws BusinessException, CapienzaEsauritaException {
 		try {
 			if (prenotazione.getLezione() != null) {
-				
+
 				lezioneService.decreaseCapienzaLezione(prenotazione.getLezione());
 
 			} else {
@@ -137,35 +138,33 @@ public class FilePrenotazioneServiceImpl implements PrenotazioneService {
 
 	@Override
 	public void generateQrcode(Prenotazione prenotazione) throws WriterException, IOException, NotFoundException {
-		// The data that the QR code will contain
+		// I dati che conterranno i qrcodes
 		String data = prenotazione.getId().toString();
 
-		// The path where the image will get saved
+		// il path dove verra salvato il qrcode
 		String path = "qrcodes/" + prenotazione.getQrcode() + ".png";
 
-		// Encoding charset
+
 		String charset = "UTF-8";
 
 		Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
 
 		hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
 
-		// Create the QR code and save
-		// in the specified folder
-		// as a jpg file
+		// crea il qrcode e salva nel path specificato come png
+		
 		Qrcode.createQR(data, path, charset, hashMap, 200, 200);
 		System.out.println("QR Code Generated!!! ");
 
 	}
 
 	public void sendEmail(Prenotazione prenotazione) {
-		// Recipient's email ID needs to be mentioned.
+		// email del cliente a cui inviare la mail
 		String to = prenotazione.getCliente().getEmail();
 
-		// Sender's email ID needs to be mentioned
+		// email del mittente
 		String from = "";
 
-		// Assuming you are sending email from through gmails smtp
 		String host = "smtp.gmail.com";
 
 		// Get system properties
@@ -204,8 +203,8 @@ public class FilePrenotazioneServiceImpl implements PrenotazioneService {
 
 			// first part (the html)
 			BodyPart messageBodyPart = new MimeBodyPart();
-			String htmlText = "" + "<H1>QRcode prenotazione</H1> "
-					+ "Utilizza questo qrcode per effettuare checkin e checkout. <br>Prenotazione per il giorno: "
+			String htmlText = "<H1>QRcode prenotazione</H1> Utilizza questo QR-code per effettuare il checkin ed il checkout. <br>"
+					+ "Prenotazione per il giorno:"
 					+ prenotazione.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " alle ore: "
 					+ prenotazione.getOrarioInizio() + "<br><img src=\"cid:image\">";
 
@@ -237,86 +236,60 @@ public class FilePrenotazioneServiceImpl implements PrenotazioneService {
 
 	@Override
 	public List<Prenotazione> findAllPrenotazioni(Cliente cliente) throws BusinessException {
-			List<Prenotazione> result = new ArrayList<>();
-			try {
-				FileData fileData = Utility.readAllRows(prenotazioniFileName);
-				for (String[] colonne : fileData.getRighe()) {
-					//1,1,sala,1,2022-02-18,16:00,qrcode1
-					if (cliente.getId() == Integer.parseInt(colonne[0])) {
-						Prenotazione prenotazione = new Prenotazione();
-						prenotazione.setId(Integer.parseInt(colonne[0]));
-						prenotazione.setCliente((Cliente) utenteService.findUtenteById(Integer.parseInt(colonne[1])));
-						if(colonne[2].equals("sala")) {
-						prenotazione.setSala(salaService.findSalaById(Integer.parseInt(colonne[3])));
-						}else {
-						prenotazione.setLezione(lezioneService.findLezioneById(Integer.parseInt(colonne[3])));
-						}
-						prenotazione.setData(LocalDate.parse(colonne[4]));;
-						prenotazione.setOrarioInizio(LocalTime.parse(colonne[5]));
-						prenotazione.setQrcode(colonne[6]);
-						result.add(prenotazione);
-					}
-				}
-
-			} catch (IOException e) {
-				e.printStackTrace();
-				throw new BusinessException(e);
-			}
-			return result;
-	}
-
-	@Override
-	public void CancellaPrenotazione(Prenotazione prenotazione , Cliente cliente) throws BusinessException {
+		List<Prenotazione> result = new ArrayList<>();
 		try {
 			FileData fileData = Utility.readAllRows(prenotazioniFileName);
-
-			try (PrintWriter writer = new PrintWriter(new File(prenotazioniFileName))) {
-
-				Integer contatore = (int) fileData.getContatore();
-
-				writer.println((contatore - 1));
-				List<String[]> righe = fileData.getRighe();
-				Iterator<String[]> i = righe.iterator();
-				String[] riga = null;
-				while (i.hasNext()) {
-					riga = (String[]) i.next();
-
-					if (riga[0].equals(String.valueOf(prenotazione.getId()))&& cliente.getId()==Integer.parseInt(riga[1])) {
-						i.remove();
-						while (i.hasNext()) {
-							riga = (String[]) i.next();
-							Integer id = Integer.parseInt(riga[0]);
-							riga[0] = String.valueOf(id - 1);
-							writer.println(String.join(Utility.SEPARATORE_COLONNA, riga));
-						}
-						break;
+			for (String[] colonne : fileData.getRighe()) {
+				// 1,1,sala,1,2022-02-18,16:00,qrcode1
+				if (cliente.getId() == Integer.parseInt(colonne[1])) {
+					Prenotazione prenotazione = new Prenotazione();
+					prenotazione.setId(Integer.parseInt(colonne[0]));
+					prenotazione.setCliente((Cliente) utenteService.findUtenteById(Integer.parseInt(colonne[1])));
+					if (colonne[2].equals("sala")) {
+						prenotazione.setSala(salaService.findSalaById(Integer.parseInt(colonne[3])));
+						prenotazione.setData(LocalDate.parse(colonne[4]));
+						;
+						prenotazione.setOrarioInizio(LocalTime.parse(colonne[5]));
+						prenotazione.setQrcode(colonne[6]);
+					} else {
+						prenotazione.setLezione(lezioneService.findLezioneById(Integer.parseInt(colonne[3])));
+						prenotazione.setData(prenotazione.getLezione().getData());
+						prenotazione.setOrarioInizio(prenotazione.getLezione().getOrarioInizio());
+						prenotazione.setQrcode(colonne[4]);
 					}
 
-					writer.println(String.join(Utility.SEPARATORE_COLONNA, riga));
+					result.add(prenotazione);
 				}
 			}
-		}catch (IOException e) {
+
+		} catch (IOException e) {
 			e.printStackTrace();
 			throw new BusinessException(e);
 		}
-		
+		return result;
+	}
+
+	@Override
+	public void CancellaPrenotazione(Prenotazione prenotazione, Cliente cliente) throws BusinessException {
+		try {
+			FileData fileData = Utility.readAllRows(prenotazioniFileName);
+			try (PrintWriter writer = new PrintWriter(new File(prenotazioniFileName))) {
+				writer.println(fileData.getContatore());
+				for (String[] colonne : fileData.getRighe()) {
+					if (colonne[0].equals(String.valueOf(prenotazione.getId()))
+							&& cliente.getId() == Integer.parseInt(colonne[1])) {
+						// do nothing
+					} else {
+
+						writer.println(String.join(Utility.SEPARATORE_COLONNA, colonne));
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new BusinessException(e);
 		}
-	
-		
-
-	/*public void checkIn(Prenotazione prenotazione) throws WriterException, IOException, NotFoundException {
-
-		// Path where the QR code is saved
-		String path = "qrcodes/.";
-
-		// Encoding charset
-		String charset = "UTF-8";
-
-		Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
-
-		hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-
-		System.out.println("QRCode output: " + Qrcode.readQR(path, charset, hashMap));
-	}*/
 
 	}
+
+}

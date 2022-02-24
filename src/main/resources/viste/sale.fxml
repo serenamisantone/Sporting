@@ -13,16 +13,16 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="saleTable" layoutY="90.0" prefHeight="294.0" prefWidth="607.0">
+      <TableView fx:id="saleTable" layoutX="7.0" layoutY="90.0" prefHeight="294.0" prefWidth="594.0">
          <columns>
             <TableColumn fx:id="codice" prefWidth="85.59991645812988" text="Codice" />
             <TableColumn fx:id="specializzazione" prefWidth="180.8000030517578" text="Specializzazione" />
             <TableColumn fx:id="prenota" prefWidth="82.4000244140625" />
          </columns>
       </TableView>
-      <Label fx:id="loginLabel" layoutX="74.0" layoutY="14.0" prefHeight="35.0" prefWidth="458.0" textFill="WHITE">
+      <Label fx:id="errorLabel" layoutX="10.0" layoutY="14.0" prefHeight="35.0" prefWidth="587.0" textFill="WHITE">
          <font>
-            <Font size="24.0" />
+            <Font size="18.0" />
          </font>
       </Label>
    </children>

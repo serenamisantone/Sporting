@@ -1,7 +1,6 @@
 package sporting.controller;
 
 import java.net.URL;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -39,14 +38,15 @@ public class LezioniController implements Initializable, DataInitializable<Perso
 
 	@FXML
 	private TableColumn<Lezione, String> data;
-
+	@FXML
+	private TableColumn<Lezione, Integer> capienza;
 	@FXML
 	private TableColumn<Lezione, String> ora;
 
 	@FXML
 	private TableColumn<Lezione, Button> prenota;
 	@FXML
-	private Label loginLabel;
+	private Label errorLabel;
 	
 	private ViewDispatcher dispatcher;
 	private LezioneService lezioniService;
@@ -73,8 +73,13 @@ public class LezioniController implements Initializable, DataInitializable<Perso
 	@Override
 	public void initializeData(Persona persona) {
 		if (persona == null) {
-			loginLabel.setText("Effettua il login per prenotare una lezione");
-		} else {
+			errorLabel.setText("Effettua il login per prenotare una lezione");		
+		}else {
+		if(((Cliente) persona).getAbbonamento()==null ){
+			errorLabel.setText("Non puoi prenotare una lezione perchè non hai un abbonamento");
+		}else
+			{
+		
 			prenota.setCellValueFactory((CellDataFeatures<Lezione, Button> param) -> {
 				Button button = new Button("Prenota");
 				button.setStyle("-fx-background-color: #C8A2C8");
@@ -90,6 +95,7 @@ public class LezioniController implements Initializable, DataInitializable<Perso
 				return new SimpleObjectProperty<Button>(button);
 			});
 		}
+		}
 		codice.setCellValueFactory(new PropertyValueFactory<>("codice"));
 		specializzazione.setCellValueFactory((CellDataFeatures<Lezione, String> param) -> {
 			return new SimpleStringProperty(param.getValue().getSpecializzazione().getNome());
@@ -102,6 +108,7 @@ public class LezioniController implements Initializable, DataInitializable<Perso
 			return new SimpleObjectProperty<String>(
 					param.getValue().getOrarioInizio().format(DateTimeFormatter.ISO_LOCAL_TIME));
 		});
-		
+		capienza.setCellValueFactory(new PropertyValueFactory<>("capienza"));
 	}
 }
+
